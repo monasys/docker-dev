@@ -7,18 +7,18 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src/backend:/var/www/backend
+      - ./src/code:/var/www/code
       - ./nginx/conf.d:/etc/nginx/conf.d
       - phpmyadmindata:/var/www/phpmyadmin
     depends_on:
-      - backend
+      - php
       - phpmyadmin
 
-  backend:
+  php:
     build: ./
-    working_dir: /var/www/backend
+    working_dir: /var/www/code
     volumes:
-      - ./src/backend:/var/www/backend
+      - ./src/code:/var/www/code
     depends_on:
       - mysql
 
