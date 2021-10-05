@@ -1,5 +1,9 @@
 version: '3.8'
 
+volumes:
+  mysqldata:
+  phpmyadmindata:
+
 services:
 
   nginx:
@@ -41,9 +45,3 @@ services:
       - phpmyadmindata:/var/www/html
     depends_on:
       - mysql
-
-volumes:
-
-  mysqldata:
-  
-  phpmyadmindata:
