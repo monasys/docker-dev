@@ -1,30 +1,36 @@
 version: '3.8'
 
-volumes:
-  mysqldata:
-  phpmyadmindata:
-
 services:
 
   nginx:
-    image: nginx:1.21.3
+    image: nginx:1.21.3-alpine
     ports:
       - "8080:80"
+    depends_on:
+      - php
+      - phpmyadmin
     volumes:
       - ./src/code:/var/www/code
       - ./nginx/conf.d:/etc/nginx/conf.d
       - phpmyadmindata:/var/www/phpmyadmin
-    depends_on:
-      - php
-      - phpmyadmin
+    networks:
+      - dev-network
 
   php:
-    build: ./
+    build:
+      context: ./
+      args:
+        UID: $UID
+        PASSWD: $PASSWD
+    expose:
+      - 9003
     working_dir: /var/www/code
-    volumes:
-      - ./src/code:/var/www/code
     depends_on:
       - mysql
+    volumes:
+      - ./src/code:/var/www/code
+    networks:
+      - dev-network
 
   mysql:
     image: mysql:8.0.26
@@ -36,12 +42,26 @@ services:
       MYSQL_DATABASE: dev
     volumes:
       - mysqldata:/var/lib/mysql
+    networks:
+      - dev-network
       
   phpmyadmin:
     image: phpmyadmin:5.1.1-fpm-alpine
     environment:
       PMA_HOST: mysql
-    volumes:
-      - phpmyadmindata:/var/www/html
     depends_on:
       - mysql
+    volumes:
+      - phpmyadmindata:/var/www/html
+    networks:
+      - dev-network
+
+volumes:
+  mysqldata:
+    driver: local
+  phpmyadmindata:
+    driver: local
+
+networks:
+  dev-network:
+    driver: bridge

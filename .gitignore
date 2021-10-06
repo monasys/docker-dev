@@ -1,3 +1,4 @@
 src/code/*
 .idea/*
 .vscode/*
+.env
