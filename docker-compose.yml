@@ -10,7 +10,7 @@ services:
       - php
       - phpmyadmin
     volumes:
-      - ./src/code:/var/www/code
+      - ./code:/var/www/code
       - ./nginx/conf.d:/etc/nginx/conf.d
       - phpmyadmindata:/var/www/phpmyadmin
     networks:
@@ -28,7 +28,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./src/code:/var/www/code
+      - ./code:/var/www/code
     networks:
       - dev-network
 

@@ -11,7 +11,8 @@ RUN docker-php-ext-install pdo_mysql mysqli \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> \ 
+    /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && apk del pcre-dev ${PHPIZE_DEPS} \
     && apk --no-cache add sudo vim npm \
     && adduser --disabled-password --uid $UID user \

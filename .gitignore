@@ -1,4 +1,2 @@
-src/code/*
-.idea/*
-.vscode/*
+code/*
 .env
