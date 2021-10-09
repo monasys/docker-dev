@@ -29,6 +29,7 @@ services:
       - mysql
     volumes:
       - ./code:/var/www/code
+      - ./home/user/.gitconfig:/home/user/.gitconfig
     networks:
       - dev-network
 
