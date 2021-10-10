@@ -21,7 +21,7 @@ services:
       context: ./
       args:
         UID: $UID
-        PASSWD: $PASSWD
+        UNIX_PASSWD: $UNIX_PASSWD
     expose:
       - 9003
     working_dir: /var/www/code
@@ -39,8 +39,8 @@ services:
     ports:
       - "33066:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: dev
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
     volumes:
       - mysqldata:/var/lib/mysql
     networks:
