@@ -3,6 +3,7 @@ version: '3.8'
 services:
 
   nginx:
+    container_name: docker-dev-nginx
     image: nginx:1.21.3-alpine
     ports:
       - "8080:80"
@@ -17,6 +18,7 @@ services:
       - dev-network
 
   php:
+    container_name: docker-dev-php
     build:
       context: ./
       args:
@@ -34,8 +36,8 @@ services:
       - dev-network
 
   mysql:
-    image: mysql:8.0.26
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: docker-dev-mysql
+    image: mariadb:10.6.4-focal
     ports:
       - "33066:3306"
     environment:
@@ -45,8 +47,9 @@ services:
       - mysqldata:/var/lib/mysql
     networks:
       - dev-network
-      
+
   phpmyadmin:
+    container_name: docker-dev-phpmyadmin
     image: phpmyadmin:5.1.1-fpm-alpine
     environment:
       PMA_HOST: mysql
