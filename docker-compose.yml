@@ -4,7 +4,7 @@ services:
 
   nginx:
     container_name: docker-dev-nginx
-    image: nginx:1.21.3-alpine
+    image: nginx:1.21.4-alpine
     ports:
       - "8080:80"
     depends_on:
@@ -37,7 +37,7 @@ services:
 
   mysql:
     container_name: docker-dev-mysql
-    image: mariadb:10.6.4-focal
+    image: mariadb:10.7.1-focal
     ports:
       - "33066:3306"
     environment:
