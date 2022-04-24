@@ -4,9 +4,9 @@ services:
 
   nginx:
     container_name: docker-dev-nginx
-    image: nginx:1.21.4-alpine
+    image: nginx:1.21.6-alpine
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - php
       - phpmyadmin
@@ -31,15 +31,14 @@ services:
       - mysql
     volumes:
       - ./code:/var/www/code
-      - ./home/user/.gitconfig:/home/user/.gitconfig
     networks:
       - dev-network
 
   mysql:
     container_name: docker-dev-mysql
-    image: mariadb:10.7.1-focal
+    image: mariadb:10.7.3-focal
     ports:
-      - "33066:3306"
+      - "33060:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWD}
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
@@ -50,9 +49,11 @@ services:
 
   phpmyadmin:
     container_name: docker-dev-phpmyadmin
-    image: phpmyadmin:5.1.1-fpm-alpine
+    image: phpmyadmin:5.1.3-fpm-alpine
     environment:
       PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_PASSWD}
     depends_on:
       - mysql
     volumes:
