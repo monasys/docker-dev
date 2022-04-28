@@ -12,7 +12,7 @@ RUN docker-php-ext-install pdo_mysql mysqli \
     && apk --no-cache add pcre-dev ${PHPIZE_DEPS} \ 
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
-    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> \ 
     /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && apk del pcre-dev ${PHPIZE_DEPS} \
